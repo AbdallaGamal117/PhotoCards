@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit Item</title>
+	<link rel="stylesheet" href="assests/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assests/css/style.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Abdalla's Blog</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Features</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Pricing</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							Site Settings
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="#" onclick="resetAllChanges();">Reset All Changes</a>
+							</li>
+							<li><a class="dropdown-item" href="#" onclick="toggleAutoLoad();">Toggle auto posts load</a>
+							</li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="contentEditor" class="container">
+		<form class="row g-3" id="editForm">
+			<div class="col-md-12">
+				<div class="h2">
+					Edit Post #
+				</div>
+			</div>
+			<div class="col-md-12">
+				<label for="inputAlbumId" class="form-label">Album ID</label>
+				<input type="number" name="albumid" class="form-control" id="inputAlbumId" placeholder="Album ID">
+			</div>
+
+			<div class="col-md-12">
+				<label for="inputTitle" class="form-label">Post Title</label>
+				<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Post Title">
+			</div>
+			<div class="col-md-12">
+				<label for="inputUrl" class="form-label">Image Url</label>
+				<input type="text" name="url" class="form-control" id="inputUrl" placeholder="Image Link">
+				<div class="container d-flex mx-auto justify-content-center align-items-center">
+					<img src="" class="img-fluid text-center" id="imgUrl" alt="" srcset="" />
+				</div>
+			</div>
+			<div class="col-12">
+				<label for="inputThumb" class="form-label">Image Thumbnail</label>
+				<input type="text" class="form-control" name="thumbnailUrl" id="inputThumb"
+					placeholder="Thumbnail Link">
+				<div class="container d-flex mx-auto justify-content-center align-items-center">
+					<img src="" class="img-fluid text-center" id="imgThumb" alt="" srcset="" />
+				</div>
+			</div>
+			<div class="col-12">
+				<button type="button" id="submitBtn" class="btn btn-success">Save Changes</button>
+				<button type="reset" class="btn btn-outline-secondary">Reset</button>
+			</div>
+		</form>
+	</div>
+
+	
+	<!-- Footer -->
+	<footer class="text-center text-lg-start bg-dark text-light mt-2">
+		<section class="pt-3">
+			<div class="container text-center text-md-start mt-5">
+				<div class="row mt-3">
+					<div class="col-md-6 col-lg-4 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">My Blog</h6>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptatem?</p>
+					</div>
+					<div class="col-md-6 col-lg-4 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">Features</h6>
+						<p>Robust Responsive Design</p>
+						<p>Ability to view, edit, remove photos</p>
+						<p>Options to auto Load posts when scroll down to end of page</p>
+						<p>Or load by a button</p>
+					</div>
+
+					<div class="col-md-6 col-lg-4 mx-auto mb-md-0 mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+						<p>Cairo, EG</p>
+						<p>abdallagamal117@gmail.com</p>
+						<p> +20 1 234 567 88</p>
+						<p>+20 1 234 567 89</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.1);">
+			© 2023 Copyright: Abdallah Gamal
+		</div>
+	</footer>
+
+	<script src="assests/js/bootstrap.bundle.min.js"></script>
+	<script src="assests/js/ui.js"></script>
+	<script src="assests/js/api.js"></script>
+	<script>
+		let id = parseInt(new URL(window.location.href).searchParams.get('id'));
+		if (id == NaN) {
+			throw new Error('Not valid id');
+		}
+		UI.instance.createConfirmModal('confirm', 'Update Confirmation', 'Are you sure you want to save these updates ?',
+			'Save Changes', 'btn-success', 'saveBtn');
+		UI.instance.createSuccessModal('success', 'Done', '<span class="text-success">Updates saved successfully!</span>');
+
+		let api = new API();
+		api.execSingleItem(id);
+
+	</script>
+</body>
+
+</html>

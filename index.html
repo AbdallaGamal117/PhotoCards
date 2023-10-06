@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Posts</title>
+	<link rel="stylesheet" href="assests/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assests/css/style.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Abdalla's Blog</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Features</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Pricing</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							Site Settings
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="#" onclick="resetAllChanges();">Reset All Changes</a>
+							</li>
+							<li><a class="dropdown-item" href="#" onclick="toggleAutoLoad();">Toggle auto posts load</a>
+							</li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="posts">
+		<div class="container">
+		</div>
+	</div>
+	<div id="autoLoadBtn" class="off"><button class="btn btn-primary my-3">Load More !</button></div>
+	<div id="loading">
+		<div class="virtual">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden"></span>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Showing Full Image -->
+	<div class="modal fade" aria-hidden="true" id="imgModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content"><img src="" alt="" srcset="" /></div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer class="text-center text-lg-start bg-dark text-light mt-2">
+		<section class="pt-3">
+			<div class="container text-center text-md-start mt-5">
+				<div class="row mt-3">
+					<div class="col-md-6 col-lg-4 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">My Blog</h6>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptatem?</p>
+					</div>
+					<div class="col-md-6 col-lg-4 mx-auto mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">Features</h6>
+						<p>Robust Responsive Design</p>
+						<p>Ability to view, edit, remove photos</p>
+						<p>Options to auto Load posts when scroll down to end of page</p>
+						<p>Or load by a button</p>
+					</div>
+
+					<div class="col-md-6 col-lg-4 mx-auto mb-md-0 mb-4">
+						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+						<p>Cairo, EG</p>
+						<p>abdallagamal117@gmail.com</p>
+						<p> +20 1 234 567 88</p>
+						<p>+20 1 234 567 89</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.1);">
+			© 2023 Copyright: Abdallah Gamal
+		</div>
+	</footer>
+
+	<script src="assests/js/bootstrap.bundle.min.js"></script>
+	<script src="assests/js/ui.js"></script>
+	<script src="assests/js/api.js"></script>
+
+	<script>
+		const api = new API();
+		api.execAllItems();
+		UI.instance.createConfirmModal('del', 'Deletion Confirmation', 'Are you sure you want to delete element with id <span id="modalElmId"></span>',
+			'Delete', 'btn-danger', 'delBtn');
+		UI.instance.createSuccessModal('success', 'Done', 'Element selected has been deleted successfully !');
+
+		// const modalObj = document.getElementById('delModal');
+		// modalObj.addEventListener('hidden.bs.modal', function (e) {
+		// 	e.target.dataset.targetId = '';
+		// 	document.querySelector('#modalElmId').innerText = '';
+		// });
+
+		function resetAllChanges() {
+			Storage.save('removedItems', []);
+			Storage.save('updatedItems', []);
+			window.location.reload();
+		}
+
+		function toggleAutoLoad() {
+			if (UI.instance.autoLoad == true) {
+				UI.instance.autoLoad = false;
+			} else {
+				UI.instance.autoLoad = true;
+			}
+		}
+	</script>
+</body>
+
+</html>
